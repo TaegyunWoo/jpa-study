@@ -1,6 +1,7 @@
 package jpabook.start;
 
 import javax.persistence.*;  //**
+import java.util.Date;
 
 /**
  * User: HolyEyE
@@ -19,6 +20,19 @@ public class Member {
 
     private Integer age;
 
+    @Enumerated(EnumType.STRING) //Enum Type 사용시 필요한 애너테이션
+    private RoleType roleType;
+
+    @Temporal(TemporalType.TIMESTAMP) //날짜 사용시 필요한 애너테이션
+    private Date createdDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastModifiedDate;
+
+    @Lob
+    private String description;
+
+    // getter, setter
     public String getId() {
         return id;
     }
