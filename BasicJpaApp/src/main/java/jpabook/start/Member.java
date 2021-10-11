@@ -20,10 +20,10 @@ public class Member {
 
     private Integer age;
 
-    @Enumerated(EnumType.STRING) //Enum Type 사용시 필요한 애너테이션
+    @Enumerated(EnumType.STRING) //Enum Type 매핑시 필요한 애너테이션
     private RoleType roleType;
 
-    @Temporal(TemporalType.TIMESTAMP) //날짜 사용시 필요한 애너테이션
+    @Temporal(TemporalType.TIMESTAMP) //날짜 매핑시 필요한 애너테이션
     private Date createdDate;
 
     @Temporal(TemporalType.TIMESTAMP)
