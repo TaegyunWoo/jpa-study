@@ -1,9 +1,6 @@
 package jpabook.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class OrderItem {
@@ -17,6 +14,14 @@ public class OrderItem {
 
     @Column(name = "ORDER_ID")
     private Long orderId;
+
+    @ManyToOne //연관관계의 주인
+    @JoinColumn(name = "ITEM_ID")
+    private Item item; //주문 상품
+
+    @ManyToOne //연관관계의 주인
+    @JoinColumn(name = "ORDER_ID")
+    private Order order; //주문
 
     private int orderPrice; // 주문 가격
     private int count; // 주문 수량
@@ -61,5 +66,21 @@ public class OrderItem {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

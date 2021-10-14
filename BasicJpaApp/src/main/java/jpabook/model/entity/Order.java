@@ -1,7 +1,9 @@
 package jpabook.model.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Order {
@@ -12,11 +14,35 @@ public class Order {
     @Column(name = "MEMBER_ID")
     private Long memberId;
 
+    @ManyToOne //연관관계의 주인
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
+
+    @OneToMany(mappedBy = "order") //연관관계의 주인은 OrderItem.order 이다.
+    private List<OrderItem> orderItems = new ArrayList<OrderItem>();
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date orderDate;
 
     @Enumerated
     private OrderStatus status;
+
+    // 연관관계 메서드
+    public void setMember(Member member) {
+        if (this.member != null) {
+            // 만약 member 필드 변경시, 기존에 연관관계였던 member 엔티티의
+            // List<Order> 필드에서 order 엔티티를 제거한다.
+            this.member.getOrders().remove(this);
+        }
+
+        member.getOrders().add(this);
+        this.member = member;
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
+    }
 
     // getter, setter
 
@@ -51,4 +77,5 @@ public class Order {
     public void setStatus(OrderStatus status) {
         this.status = status;
     }
+
 }
