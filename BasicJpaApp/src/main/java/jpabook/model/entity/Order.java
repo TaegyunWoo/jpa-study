@@ -27,6 +27,10 @@ public class Order {
     @Enumerated
     private OrderStatus status;
 
+    @OneToOne
+    @JoinColumn(name = "DELIVERY_ID")
+    private Delivery delivery; //배송정보
+
     // 연관관계 메서드
     public void setMember(Member member) {
         if (this.member != null) {
@@ -42,6 +46,11 @@ public class Order {
     public void addOrderItem(OrderItem orderItem) {
         orderItems.add(orderItem);
         orderItem.setOrder(this);
+    }
+
+    public void setDelivery(Delivery delivery) {
+        delivery.setOrder(this);
+        this.delivery = delivery;
     }
 
     // getter, setter
