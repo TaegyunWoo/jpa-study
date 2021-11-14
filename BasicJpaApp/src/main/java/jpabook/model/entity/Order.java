@@ -14,11 +14,11 @@ public class Order extends BaseEntity {
     @Column(name = "MEMBER_ID")
     private Long memberId;
 
-    @ManyToOne //연관관계의 주인
+    @ManyToOne(fetch = FetchType.LAZY) //연관관계의 주인
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    @OneToMany(mappedBy = "order") //연관관계의 주인은 OrderItem.order 이다.
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL) //연관관계의 주인은 OrderItem.order 이다.
     private List<OrderItem> orderItems = new ArrayList<OrderItem>();
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -27,7 +27,7 @@ public class Order extends BaseEntity {
     @Enumerated
     private OrderStatus status;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "DELIVERY_ID")
     private Delivery delivery; //배송정보
 
